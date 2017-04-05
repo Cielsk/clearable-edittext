@@ -21,7 +21,6 @@ before_script:
 - "./gradlew clean"
 
 script:
-- "./gradlew check"
 - "./gradlew connectedAndroidTest"
 - "./gradlew assembleRelease"
 
