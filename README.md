@@ -55,7 +55,7 @@ Clearable AutoCompleteTextView:
 Screenshot of demo:
 ![Default Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/default-icon.png)
 
-And you can define your own icon drawable by `app:clearIconDrawable`:
+And you can define your own icon drawable by assigning drawable resource to `app:clearIconDrawable`:
 
 Clearable EditText:
 ```xml
