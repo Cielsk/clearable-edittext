@@ -8,7 +8,9 @@ Function
 ---
 ![Usage](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/usage.gif)
 
-- Add a icon in the right of EditText and AutoCompleteTextView
+- Add a icon in the right of EditText and its subclass:
+  - AutoCompleteTextView
+  - TextInputEditText
 - Clear texts when the icon is touched
 - You can define your own icon drawable
 
@@ -38,26 +40,20 @@ Usage
 ---
 By default, the clear icon is a black material design icon called 'content/ic_clear'.
 
-Clearable EditText:
+Default Clearable EditText:
 ```xml
 <com.cielyang.android.clearableedittext.ClearableEditText
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   />
 ```
-Clearable AutoCompleteTextView:
-```xml
-<com.cielyang.android.clearableedittext.ClearableAutoCompleteTextView
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  />
-```
+
 Screenshot of demo:
 ![Default Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/default-icon.png)
 
 And you can define your own icon drawable by assigning drawable resource to `app:clearIconDrawable`:
 
-Clearable EditText:
+Custom Clearable EditText:
 ```xml
 <com.cielyang.android.clearableedittext.ClearableEditText
   android:layout_width="match_parent"
@@ -65,13 +61,6 @@ Clearable EditText:
   app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
   />
 ```
-Clearable AutoCompleteTextView:
-```xml
-<com.cielyang.android.clearableedittext.ClearableAutoCompleteTextView
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
-  />
-```
+
 Screenshot of demo:
 ![Custom Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/custom-icon.png)
