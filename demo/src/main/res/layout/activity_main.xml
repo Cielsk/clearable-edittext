@@ -17,7 +17,7 @@
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="Clearable EditText:"
+      android:text="@string/clearable_edittext"
       />
 
   <com.cielyang.android.clearableedittext.ClearableEditText
@@ -30,10 +30,23 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:paddingTop="24dp"
-      android:text="Clearable AutoCompleteTextView:"
+      android:text="@string/clearable_autocompletetextview"
       />
 
   <com.cielyang.android.clearableedittext.ClearableAutoCompleteTextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
+      />
+
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:paddingTop="24dp"
+      android:text="@string/clearable_textinputedittext"
+      />
+
+  <com.cielyang.android.clearableedittext.ClearableTextInputEditText
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
