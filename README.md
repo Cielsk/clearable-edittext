@@ -36,8 +36,8 @@ The latest version is shown on JitPack badge.
 
 Usage
 ---
+By default, the clear icon is a black material design icon called 'content/ic_clear'.
 
-Just add the view into your layout xml file:
 Clearable EditText:
 ```xml
 <com.cielyang.android.clearableedittext.ClearableEditText
@@ -52,10 +52,11 @@ Clearable AutoCompleteTextView:
   android:layout_height="wrap_content"
   />
 ```
-Output:
+Screenshot of demo:
 ![Default Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/default-icon.png)
 
 And you can define your own icon drawable by `app:clearIconDrawable`:
+
 Clearable EditText:
 ```xml
 <com.cielyang.android.clearableedittext.ClearableEditText
@@ -72,5 +73,5 @@ Clearable AutoCompleteTextView:
   app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
   />
 ```
-Output:
+Screenshot of demo:
 ![Custom Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/custom-icon.png)
