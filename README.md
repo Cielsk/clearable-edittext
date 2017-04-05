@@ -31,7 +31,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-  compile 'com.github.Cielsk:clearable-edittext:{latest-version}'
+  compile 'com.github.Cielsk:clearable-edittext:0.0.2'
 }
 ```
 The latest version is shown on JitPack badge.
