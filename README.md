@@ -64,3 +64,5 @@ Custom Clearable EditText:
 
 Screenshot of demo:
 ![Custom Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/custom-icon.png)
+
+You can use subclasses in the same way(just change the class name).
