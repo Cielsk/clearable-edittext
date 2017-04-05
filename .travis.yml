@@ -18,11 +18,24 @@ before_script:
 - android-wait-for-emulator
 - adb shell input keyevent 82 &
 - chmod +x gradlew
-- "./gradlew clean"
 
 script:
-- "./gradlew connectedAndroidTest"
+- "./gradlew clean connectedAndroidTest --stacktrace"
 - "./gradlew assembleRelease"
+
+notifications:
+  email: true
+
+before_cache:
+- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+  - "$HOME/.m2"
+  - "$HOME/.gradle"
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 
 before_deploy:
 - mv clearableedittext/build/outputs/aar/clearableedittext-release.aar clearableedittext/build/outputs/aar/clearableedittext.aar
@@ -31,7 +44,7 @@ deploy:
   provider: releases
   api_key:
     secure: qJHrQq6H8zdC75M6YucBWjLhZPj/fYIEouVlW4n1At/2JrlNGwGAgitVNXXjTvp4X0u861A5TSI6ieEKo8y3/S0G/YXiNheaC9ZlyqvDyF0/YRoqLUc6fHdD7tsuRheONJfRIgTYXukkmj0Ghe2aeS/84LIkD8K8WaysaUbvvnepCYWgvjXIXV8zdWvD8jp8KTet9Wlb1+6kD4PnvCbsUECpLTcxWuRd3TBldAM1cNJ/waXsbHD3aRVOhXc4BWURbRBTtGdCDFGVYi7WQQFeiPPmuW33/SQyFN37d4tF8Wh23c1SmKbIwnBjEH3/Q02+6wRJpHVgxV/N+BEq9E/RUz7JIjgu+9FYpxIZ5St43RBO3SGpXhF7S8amqctZctJ0cwGoEj/Lnl2znbyvekPk4V1ONgbMM2/zw8R+UIuj1aDZRhCepffGSGMEFB0xTdVD9h1/UTyVGfk4wAu4OpuO6snXDj+uDeIHippfTOpriUWycY5/1UpLz06sD/tUmgcNcqKlY++bIMeXe1CuMyTZgXQ082i/ikD46e6MBk5Wa/6HDZLJ48jfY2p5cBUxRx7EIVEKbTFrEbFqiD+w3Izyd1rsc41XqfbRNZm87scpgjU+uwjNZSMnbxu8YG71EhK0kS5oYJqZb+mJ3qkZNN4CQSZ0FH+1eW4ab1DT1c/bULo=
-  file: clearableedittext/build/outputs/aar/clearableedittext-release.aar
+  file: clearableedittext/build/outputs/aar/clearableedittext.aar
   skip_cleanup: true
   on:
     tags: true
