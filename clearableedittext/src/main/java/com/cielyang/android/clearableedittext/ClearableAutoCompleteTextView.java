@@ -159,6 +159,12 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
             mIsClearIconShown = isClearIconShown;
         }
 
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeByte((byte) (mIsClearIconShown ? 1 : 0 ));
+        }
+
         boolean isClearIconShown() {
             return mIsClearIconShown;
         }
