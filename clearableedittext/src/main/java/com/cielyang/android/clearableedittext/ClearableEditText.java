@@ -1,11 +1,9 @@
 package com.cielyang.android.clearableedittext;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
@@ -14,12 +12,12 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.EditText;
+import android.support.v7.widget.AppCompatEditText;
 
 /**
  *
  */
-public class ClearableEditText extends EditText implements TextWatcher {
+public class ClearableEditText extends AppCompatEditText implements TextWatcher {
 
     @DrawableRes private static final int DEFAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
 
@@ -37,20 +35,13 @@ public class ClearableEditText extends EditText implements TextWatcher {
 
     public ClearableEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs, defStyleAttr, 0);
+        init(attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ClearableEditText(Context context, AttributeSet attrs, int defStyleAttr,
-        int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs, defStyleAttr, defStyleRes);
-    }
-
-    private void init(AttributeSet attrs, int defStyle, int defStyleRes) {
+    private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a =
-            getContext().obtainStyledAttributes(attrs, R.styleable.ClearableEditText, defStyle, defStyleRes);
+            getContext().obtainStyledAttributes(attrs, R.styleable.ClearableEditText, defStyle, 0);
 
         if (a.hasValue(R.styleable.ClearableEditText_clearIconDrawable)) {
             mClearIconDrawable = a.getDrawable(R.styleable.ClearableEditText_clearIconDrawable);
