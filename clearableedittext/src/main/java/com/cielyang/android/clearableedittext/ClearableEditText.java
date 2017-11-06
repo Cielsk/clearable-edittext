@@ -3,6 +3,7 @@ package com.cielyang.android.clearableedittext;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -89,6 +90,11 @@ public class ClearableEditText extends EditText implements TextWatcher {
         }
     }
 
+    @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        showClearIcon(focused && !TextUtils.isEmpty(getText().toString()));
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
     @Override public boolean onTouchEvent(MotionEvent event) {
         if (isClearIconTouched(event)) {
             setText(null);
@@ -150,13 +156,13 @@ public class ClearableEditText extends EditText implements TextWatcher {
             super(superState);
             mIsClearIconShown = isClearIconShown;
         }
-        
+
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeByte((byte) (mIsClearIconShown ? 1 : 0 ));
         }
-        
+
         boolean isClearIconShown() {
             return mIsClearIconShown;
         }
