@@ -20,7 +20,7 @@ import android.widget.EditText;
  */
 public class ClearableEditText extends EditText implements TextWatcher {
 
-    @DrawableRes private static final int DEAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
+    @DrawableRes private static final int DEFAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
 
     private Drawable mClearIconDrawable;
 
@@ -118,7 +118,7 @@ public class ClearableEditText extends EditText implements TextWatcher {
             if (mClearIconDrawable != null) {
                 setCompoundDrawablesWithIntrinsicBounds(null, null, mClearIconDrawable, null);
             } else {
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEAULT_CLEAR_ICON_RES_ID, 0);
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEFAULT_CLEAR_ICON_RES_ID, 0);
             }
         } else {
             // remove icon
