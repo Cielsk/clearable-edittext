@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Parcel;
@@ -95,6 +96,11 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
         if (hasFocus()) {
             showClearIcon(!TextUtils.isEmpty(s));
         }
+    }
+
+    @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        showClearIcon(focused && !TextUtils.isEmpty(getText().toString()));
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
     }
 
     @Override public boolean onTouchEvent(MotionEvent event) {

@@ -2,6 +2,7 @@ package com.cielyang.android.clearableedittext;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -78,6 +79,11 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
         if (hasFocus()) {
             showClearIcon(!TextUtils.isEmpty(s));
         }
+    }
+
+    @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        showClearIcon(focused && !TextUtils.isEmpty(getText().toString()));
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
     }
 
     @Override public boolean onTouchEvent(MotionEvent event) {
