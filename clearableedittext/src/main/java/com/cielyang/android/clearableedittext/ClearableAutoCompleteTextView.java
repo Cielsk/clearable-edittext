@@ -26,6 +26,8 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
 
     private boolean mIsClearIconShown = false;
 
+    private boolean mClearIconDrawWhenFocused = false;
+
     public ClearableAutoCompleteTextView(Context context) {
         this(context, null);
     }
@@ -48,6 +50,8 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
             mClearIconDrawable = a.getDrawable(R.styleable.ClearableAutoCompleteTextView_clearIconDrawable);
             mClearIconDrawable.setCallback(this);
         }
+
+        mClearIconDrawWhenFocused = a.getBoolean(R.styleable.ClearableEditText_clearIconDrawWhenFocused, true);
 
         a.recycle();
     }
@@ -89,7 +93,7 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
 
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        showClearIcon(focused && !TextUtils.isEmpty(getText().toString()));
+        showClearIcon((!mClearIconDrawWhenFocused || focused) && !TextUtils.isEmpty(getText().toString()));
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
     }
 

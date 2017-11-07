@@ -25,6 +25,8 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
 
     private boolean mIsClearIconShown = false;
 
+    private boolean mClearIconDrawWhenFocused = true;
+
     public ClearableTextInputEditText(Context context) {
         this(context, null);
     }
@@ -47,6 +49,8 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
             mClearIconDrawable = a.getDrawable(R.styleable.ClearableTextInputEditText_clearIconDrawable);
             mClearIconDrawable.setCallback(this);
         }
+
+        mClearIconDrawWhenFocused = a.getBoolean(R.styleable.ClearableEditText_clearIconDrawWhenFocused, true);
 
         a.recycle();
     }
@@ -82,7 +86,7 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
     }
 
     @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
-        showClearIcon(focused && !TextUtils.isEmpty(getText().toString()));
+        showClearIcon((!mClearIconDrawWhenFocused || focused) && !TextUtils.isEmpty(getText().toString()));
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
     }
 
