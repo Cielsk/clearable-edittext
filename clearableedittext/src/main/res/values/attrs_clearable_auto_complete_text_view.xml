@@ -2,5 +2,6 @@
 <resources>
   <declare-styleable name="ClearableAutoCompleteTextView" parent="ClearableEditText">
     <attr name="clearIconDrawable"/>
+    <attr name="clearIconDrawWhenFocused"/>
   </declare-styleable>
 </resources>

@@ -12,6 +12,7 @@ Function
   - AutoCompleteTextView
   - TextInputEditText
 - Clear texts when the icon is touched
+- Hide icon when EditText not focused
 - You can define your own icon drawable
 
 Gradle Dependency
@@ -59,6 +60,7 @@ Custom Clearable EditText:
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
+  app:clearIconDrawWhenFocused="false"
   />
 ```
 

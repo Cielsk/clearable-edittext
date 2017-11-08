@@ -1,31 +1,32 @@
 package com.cielyang.android.clearableedittext;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
+import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.AutoCompleteTextView;
 
 /**
  *
  */
-public class ClearableAutoCompleteTextView extends AutoCompleteTextView implements TextWatcher {
+public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView implements TextWatcher {
 
-    @DrawableRes private static final int DEAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
+    @DrawableRes
+    private static final int DEFAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
 
     private Drawable mClearIconDrawable;
 
     private boolean mIsClearIconShown = false;
+
+    private boolean mClearIconDrawWhenFocused = false;
 
     public ClearableAutoCompleteTextView(Context context) {
         this(context, null);
@@ -37,50 +38,42 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
 
     public ClearableAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs, defStyleAttr, 0);
+        init(attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ClearableAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr,
-        int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs, defStyleAttr, defStyleRes);
-    }
-
-    @TargetApi(Build.VERSION_CODES.N)
-    public ClearableAutoCompleteTextView(Context context, AttributeSet attrs, int defStyleAttr,
-        int defStyleRes, Resources.Theme popupTheme) {
-        super(context, attrs, defStyleAttr, defStyleRes, popupTheme);
-        init(attrs, defStyleAttr, defStyleRes);
-    }
-
-    private void init(AttributeSet attrs, int defStyle, int defStyleRes) {
+    private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a =
-            getContext().obtainStyledAttributes(attrs, R.styleable.ClearableAutoCompleteTextView, defStyle, defStyleRes);
+                getContext().obtainStyledAttributes(attrs, R.styleable.ClearableAutoCompleteTextView, defStyle, 0);
 
         if (a.hasValue(R.styleable.ClearableAutoCompleteTextView_clearIconDrawable)) {
             mClearIconDrawable = a.getDrawable(R.styleable.ClearableAutoCompleteTextView_clearIconDrawable);
             mClearIconDrawable.setCallback(this);
         }
 
+        mClearIconDrawWhenFocused = a.getBoolean(R.styleable.ClearableEditText_clearIconDrawWhenFocused, true);
+
         a.recycle();
     }
 
-    @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         // no operation
     }
 
-    @Override public void afterTextChanged(Editable s) {
+    @Override
+    public void afterTextChanged(Editable s) {
     }
 
-    @Override public Parcelable onSaveInstanceState() {
+    @Override
+    public Parcelable onSaveInstanceState() {
         Parcelable superState = super.onSaveInstanceState();
         return mIsClearIconShown ? new ClearIconSavedState(superState, true)
-            : superState;
+                : superState;
     }
 
-    @Override public void onRestoreInstanceState(Parcelable state) {
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
         if (!(state instanceof ClearIconSavedState)) {
             super.onRestoreInstanceState(state);
             return;
@@ -91,13 +84,21 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
         showClearIcon(mIsClearIconShown);
     }
 
-    @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (hasFocus()) {
             showClearIcon(!TextUtils.isEmpty(s));
         }
     }
 
-    @Override public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        showClearIcon((!mClearIconDrawWhenFocused || focused) && !TextUtils.isEmpty(getText().toString()));
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         if (isClearIconTouched(event)) {
             setText(null);
             event.setAction(MotionEvent.ACTION_CANCEL);
@@ -126,7 +127,7 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
             if (mClearIconDrawable != null) {
                 setCompoundDrawablesWithIntrinsicBounds(null, null, mClearIconDrawable, null);
             } else {
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEAULT_CLEAR_ICON_RES_ID, 0);
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEFAULT_CLEAR_ICON_RES_ID, 0);
             }
         } else {
             // remove icon
@@ -138,15 +139,17 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
     protected static class ClearIconSavedState extends BaseSavedState {
 
         public static final Creator<ClearIconSavedState> CREATOR =
-            new Creator<ClearIconSavedState>() {
-                @Override public ClearIconSavedState createFromParcel(Parcel source) {
-                    return new ClearIconSavedState(source);
-                }
+                new Creator<ClearIconSavedState>() {
+                    @Override
+                    public ClearIconSavedState createFromParcel(Parcel source) {
+                        return new ClearIconSavedState(source);
+                    }
 
-                @Override public ClearIconSavedState[] newArray(int size) {
-                    return new ClearIconSavedState[size];
-                }
-            };
+                    @Override
+                    public ClearIconSavedState[] newArray(int size) {
+                        return new ClearIconSavedState[size];
+                    }
+                };
         private final boolean mIsClearIconShown;
 
         private ClearIconSavedState(Parcel source) {
@@ -162,7 +165,7 @@ public class ClearableAutoCompleteTextView extends AutoCompleteTextView implemen
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            out.writeByte((byte) (mIsClearIconShown ? 1 : 0 ));
+            out.writeByte((byte) (mIsClearIconShown ? 1 : 0));
         }
 
         boolean isClearIconShown() {

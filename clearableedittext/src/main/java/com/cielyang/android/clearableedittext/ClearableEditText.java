@@ -1,10 +1,9 @@
 package com.cielyang.android.clearableedittext;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
@@ -13,18 +12,20 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.EditText;
+import android.support.v7.widget.AppCompatEditText;
 
 /**
  *
  */
-public class ClearableEditText extends EditText implements TextWatcher {
+public class ClearableEditText extends AppCompatEditText implements TextWatcher {
 
-    @DrawableRes private static final int DEAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
+    @DrawableRes private static final int DEFAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
 
     private Drawable mClearIconDrawable;
 
     private boolean mIsClearIconShown = false;
+
+    private boolean mClearIconDrawWhenFocused = true;
 
     public ClearableEditText(Context context) {
         this(context, null);
@@ -36,25 +37,20 @@ public class ClearableEditText extends EditText implements TextWatcher {
 
     public ClearableEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs, defStyleAttr, 0);
+        init(attrs, defStyleAttr);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public ClearableEditText(Context context, AttributeSet attrs, int defStyleAttr,
-        int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(attrs, defStyleAttr, defStyleRes);
-    }
-
-    private void init(AttributeSet attrs, int defStyle, int defStyleRes) {
+    private void init(AttributeSet attrs, int defStyle) {
         // Load attributes
         final TypedArray a =
-            getContext().obtainStyledAttributes(attrs, R.styleable.ClearableEditText, defStyle, defStyleRes);
+            getContext().obtainStyledAttributes(attrs, R.styleable.ClearableEditText, defStyle, 0);
 
         if (a.hasValue(R.styleable.ClearableEditText_clearIconDrawable)) {
             mClearIconDrawable = a.getDrawable(R.styleable.ClearableEditText_clearIconDrawable);
             mClearIconDrawable.setCallback(this);
         }
+
+        mClearIconDrawWhenFocused = a.getBoolean(R.styleable.ClearableEditText_clearIconDrawWhenFocused, true);
 
         a.recycle();
     }
@@ -89,6 +85,11 @@ public class ClearableEditText extends EditText implements TextWatcher {
         }
     }
 
+    @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        showClearIcon((!mClearIconDrawWhenFocused || focused) && !TextUtils.isEmpty(getText().toString()));
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
     @Override public boolean onTouchEvent(MotionEvent event) {
         if (isClearIconTouched(event)) {
             setText(null);
@@ -118,7 +119,7 @@ public class ClearableEditText extends EditText implements TextWatcher {
             if (mClearIconDrawable != null) {
                 setCompoundDrawablesWithIntrinsicBounds(null, null, mClearIconDrawable, null);
             } else {
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEAULT_CLEAR_ICON_RES_ID, 0);
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEFAULT_CLEAR_ICON_RES_ID, 0);
             }
         } else {
             // remove icon
@@ -150,13 +151,13 @@ public class ClearableEditText extends EditText implements TextWatcher {
             super(superState);
             mIsClearIconShown = isClearIconShown;
         }
-        
+
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
             out.writeByte((byte) (mIsClearIconShown ? 1 : 0 ));
         }
-        
+
         boolean isClearIconShown() {
             return mIsClearIconShown;
         }
