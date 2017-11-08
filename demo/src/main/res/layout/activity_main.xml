@@ -18,12 +18,29 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/clearable_edittext"
+    android:textSize="16sp"
     />
 
   <com.cielyang.android.clearableedittext.ClearableEditText
     android:id="@+id/edit_text"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:clearIconDrawWhenFocused="true"
+    app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
+    />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp"
+    android:text="@string/clearable_autocomplete_text_view"
+    android:textSize="16sp"/>
+
+  <com.cielyang.android.clearableedittext.ClearableAutoCompleteTextView
+    android:id="@+id/autocomplete_text_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:clearIconDrawWhenFocused="true"
     app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
     />
 
