@@ -2,6 +2,6 @@
 <resources>
   <declare-styleable name="ClearableEditText">
     <attr format="color|reference" name="clearIconDrawable"/>
-    <attr name="clearIconDrawWhenFocused" format="boolean"/>
+    <attr format="boolean" name="clearIconDrawWhenFocused"/>
   </declare-styleable>
 </resources>
