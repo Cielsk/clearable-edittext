@@ -2,6 +2,7 @@ package com.cielyang.android.clearableedittext;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,11 +19,13 @@ import android.view.MotionEvent;
  */
 public class ClearableTextInputEditText extends TextInputEditText implements TextWatcher {
 
-    @DrawableRes private static final int DEAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
+    @DrawableRes private static final int DEFAULT_CLEAR_ICON_RES_ID = R.drawable.ic_clear;
 
     private Drawable mClearIconDrawable;
 
     private boolean mIsClearIconShown = false;
+
+    private boolean mClearIconDrawWhenFocused = true;
 
     public ClearableTextInputEditText(Context context) {
         this(context, null);
@@ -46,6 +49,8 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
             mClearIconDrawable = a.getDrawable(R.styleable.ClearableTextInputEditText_clearIconDrawable);
             mClearIconDrawable.setCallback(this);
         }
+
+        mClearIconDrawWhenFocused = a.getBoolean(R.styleable.ClearableEditText_clearIconDrawWhenFocused, true);
 
         a.recycle();
     }
@@ -80,6 +85,11 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
         }
     }
 
+    @Override protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        showClearIcon((!mClearIconDrawWhenFocused || focused) && !TextUtils.isEmpty(getText().toString()));
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
     @Override public boolean onTouchEvent(MotionEvent event) {
         if (isClearIconTouched(event)) {
             setText(null);
@@ -109,7 +119,7 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
             if (mClearIconDrawable != null) {
                 setCompoundDrawablesWithIntrinsicBounds(null, null, mClearIconDrawable, null);
             } else {
-                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEAULT_CLEAR_ICON_RES_ID, 0);
+                setCompoundDrawablesWithIntrinsicBounds(0, 0, DEFAULT_CLEAR_ICON_RES_ID, 0);
             }
         } else {
             // remove icon
