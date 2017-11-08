@@ -1,12 +1,12 @@
 language: android
-jdk: oraclejdk8
+#jdk: oraclejdk8
 
 android:
   components:
   - platform-tools
   - tools
-  - build-tools-25.0.2
-  - android-25
+  - build-tools-26.0.2
+  - android-26
   - android-16
   - extra-android-support
   - sys-img-armeabi-v7a-android-16
@@ -26,16 +26,16 @@ script:
 notifications:
   email: true
 
-before_cache:
-- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
-- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
-cache:
-  directories:
-  - "$HOME/.m2"
-  - "$HOME/.gradle"
-  - "$HOME/.gradle/caches/"
-  - "$HOME/.gradle/wrapper/"
+#before_cache:
+#- rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+#- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+#
+#cache:
+#  directories:
+#  - "$HOME/.m2"
+#  - "$HOME/.gradle"
+#  - "$HOME/.gradle/caches/"
+#  - "$HOME/.gradle/wrapper/"
 
 before_deploy:
 - mv clearableedittext/build/outputs/aar/clearableedittext-release.aar clearableedittext/build/outputs/aar/clearableedittext.aar
