@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-  compileSdkVersion 26
-  buildToolsVersion "26.0.2"
+  compileSdkVersion 27
+  buildToolsVersion '27.0.3'
   defaultConfig {
     applicationId "com.cielyang.android.customedittext"
     minSdkVersion 16
-    targetSdkVersion 26
+    targetSdkVersion 27
     versionCode 1
     versionName "1.0"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -28,7 +28,7 @@ dependencies {
   androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
     exclude group: 'com.android.support', module: 'support-annotations'
   })
-  implementation 'com.android.support:appcompat-v7:26.1.0'
+  implementation 'com.android.support:appcompat-v7:27.1.1'
   testImplementation 'junit:junit:4.12'
   implementation 'com.jakewharton:butterknife:8.8.1'
   annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'

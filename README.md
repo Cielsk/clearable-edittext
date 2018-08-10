@@ -22,7 +22,7 @@ Step 1. Add it in your root build.gradle at the end of repositories:
 ```groovy
 allprojects {
   repositories {
-    ... 
+    //... 
     
     maven { url 'https://jitpack.io' }
   }
@@ -32,7 +32,7 @@ allprojects {
 Step 2. Add the dependency
 ```groovy
 dependencies {
-  compile 'com.github.Cielsk:clearable-edittext:0.0.4'
+  compile 'com.github.Cielsk:clearable-edittext:0.0.5'
 }
 ```
 The latest version is shown on JitPack badge.
