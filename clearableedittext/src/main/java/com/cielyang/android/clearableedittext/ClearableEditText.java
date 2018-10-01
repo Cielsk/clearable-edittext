@@ -26,6 +26,8 @@ public class ClearableEditText extends AppCompatEditText implements TextWatcher 
 
     private boolean mClearIconDrawWhenFocused = true;
 
+    private OnTextClearedListener textClearedListener;
+
     public ClearableEditText(Context context) {
         this(context, null);
     }
@@ -99,6 +101,8 @@ public class ClearableEditText extends AppCompatEditText implements TextWatcher 
             setText(null);
             event.setAction(MotionEvent.ACTION_CANCEL);
             showClearIcon(false);
+            if(textClearedListener != null)
+                textClearedListener.onTextCleared();
             return false;
         }
         return super.onTouchEvent(event);
@@ -164,5 +168,10 @@ public class ClearableEditText extends AppCompatEditText implements TextWatcher 
         boolean isClearIconShown() {
             return mIsClearIconShown;
         }
+    }
+
+    @SuppressWarnings("unused")
+    public void setOnTextClearedListener(OnTextClearedListener textClearedListener) {
+        this.textClearedListener = textClearedListener;
     }
 }
