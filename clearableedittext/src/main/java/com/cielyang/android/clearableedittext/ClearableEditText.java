@@ -83,7 +83,7 @@ public class ClearableEditText extends AppCompatEditText implements TextWatcher 
     }
 
     @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if (hasFocus()) {
+        if (!mClearIconDrawWhenFocused || hasFocus()) {
             showClearIcon(!TextUtils.isEmpty(s));
         }
     }

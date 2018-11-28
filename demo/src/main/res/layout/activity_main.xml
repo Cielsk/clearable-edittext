@@ -29,6 +29,14 @@
       app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
       />
 
+  <com.cielyang.android.clearableedittext.ClearableEditText
+      android:id="@+id/prepopulated_edit_text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:clearIconDrawWhenFocused="false"
+      app:clearIconDrawable="@drawable/ic_clear_grey_500_24dp"
+      />
+
   <TextView
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
