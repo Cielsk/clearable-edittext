@@ -68,3 +68,18 @@ Screenshot of demo:
 ![Custom Icon](https://raw.githubusercontent.com/Cielsk/clearable-edittext/master/asset/custom-icon.png)
 
 You can use subclasses in the same way(just change the class name).
+
+
+This library also supports some event listeners
+#### OnTextClearedListener
+
+This is called when the text is cleared
+
+```
+clearableEditText.setOnTextClearedListener(new OnTextClearedListener() {
+    @Override
+    public void onTextCleared() {
+        // your code here
+    }
+});
+```
