@@ -7,13 +7,13 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
-import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import androidx.annotation.DrawableRes;
+import androidx.appcompat.widget.AppCompatAutoCompleteTextView;
 
 /** */
 public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView

@@ -7,13 +7,13 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.DrawableRes;
-import android.support.design.widget.TextInputEditText;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import androidx.annotation.DrawableRes;
+import com.google.android.material.textfield.TextInputEditText;
 
 /** */
 public class ClearableTextInputEditText extends TextInputEditText implements TextWatcher {

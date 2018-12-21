@@ -2,8 +2,7 @@ package com.cielyang.android.customedittext;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.cielyang.android.clearableedittext.ClearableEditText;
 
 public class MainActivity extends AppCompatActivity {
