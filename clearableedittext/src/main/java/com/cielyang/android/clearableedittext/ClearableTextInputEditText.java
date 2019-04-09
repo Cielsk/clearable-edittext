@@ -26,6 +26,8 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
 
     private boolean mClearIconDrawWhenFocused = true;
 
+    private OnTextClearedListener textClearedListener;
+
     public ClearableTextInputEditText(Context context) {
         this(context, null);
     }
@@ -103,6 +105,7 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
             setText(null);
             event.setAction(MotionEvent.ACTION_CANCEL);
             showClearIcon(false);
+            if (textClearedListener != null) textClearedListener.onTextCleared();
             return false;
         }
         return super.onTouchEvent(event);
@@ -134,6 +137,11 @@ public class ClearableTextInputEditText extends TextInputEditText implements Tex
             setCompoundDrawables(null, null, null, null);
         }
         mIsClearIconShown = show;
+    }
+
+    @SuppressWarnings("unused")
+    public void setOnTextClearedListener(OnTextClearedListener textClearedListener) {
+        this.textClearedListener = textClearedListener;
     }
 
     protected static class ClearIconSavedState extends BaseSavedState {

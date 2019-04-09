@@ -27,6 +27,8 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
 
     private boolean mClearIconDrawWhenFocused = false;
 
+  private OnTextClearedListener textClearedListener;
+
     public ClearableAutoCompleteTextView(Context context) {
         this(context, null);
     }
@@ -102,6 +104,7 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
             setText(null);
             event.setAction(MotionEvent.ACTION_CANCEL);
             showClearIcon(false);
+          if (textClearedListener != null) textClearedListener.onTextCleared();
             return false;
         }
         return super.onTouchEvent(event);
@@ -134,6 +137,11 @@ public class ClearableAutoCompleteTextView extends AppCompatAutoCompleteTextView
         }
         mIsClearIconShown = show;
     }
+
+  @SuppressWarnings("unused")
+  public void setOnTextClearedListener(OnTextClearedListener textClearedListener) {
+    this.textClearedListener = textClearedListener;
+  }
 
     protected static class ClearIconSavedState extends BaseSavedState {
 
