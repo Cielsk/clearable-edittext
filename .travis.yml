@@ -1,11 +1,9 @@
 language: android
 jdk: oraclejdk8
-
 env:
   global:
   - ANDROID_API=28
   - ANDROID_BUILD_TOOLS=28.0.3
-
 android:
   components:
   - platform-tools
@@ -15,30 +13,24 @@ android:
   - extra
   - extra-google-m2repository
   - extra-android-m2repository
-
 before_install:
 - chmod +x gradlew
-
 before_cache:
 - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.android/build-cache
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 script:
 - "./gradlew assembleRelease"
-
 before_deploy:
 - mv clearableedittext/build/outputs/aar/clearableedittext-release.aar clearableedittext/build/outputs/aar/clearableedittext.aar
-
 deploy:
   provider: releases
   api_key:
-    secure: qJHrQq6H8zdC75M6YucBWjLhZPj/fYIEouVlW4n1At/2JrlNGwGAgitVNXXjTvp4X0u861A5TSI6ieEKo8y3/S0G/YXiNheaC9ZlyqvDyF0/YRoqLUc6fHdD7tsuRheONJfRIgTYXukkmj0Ghe2aeS/84LIkD8K8WaysaUbvvnepCYWgvjXIXV8zdWvD8jp8KTet9Wlb1+6kD4PnvCbsUECpLTcxWuRd3TBldAM1cNJ/waXsbHD3aRVOhXc4BWURbRBTtGdCDFGVYi7WQQFeiPPmuW33/SQyFN37d4tF8Wh23c1SmKbIwnBjEH3/Q02+6wRJpHVgxV/N+BEq9E/RUz7JIjgu+9FYpxIZ5St43RBO3SGpXhF7S8amqctZctJ0cwGoEj/Lnl2znbyvekPk4V1ONgbMM2/zw8R+UIuj1aDZRhCepffGSGMEFB0xTdVD9h1/UTyVGfk4wAu4OpuO6snXDj+uDeIHippfTOpriUWycY5/1UpLz06sD/tUmgcNcqKlY++bIMeXe1CuMyTZgXQ082i/ikD46e6MBk5Wa/6HDZLJ48jfY2p5cBUxRx7EIVEKbTFrEbFqiD+w3Izyd1rsc41XqfbRNZm87scpgjU+uwjNZSMnbxu8YG71EhK0kS5oYJqZb+mJ3qkZNN4CQSZ0FH+1eW4ab1DT1c/bULo=
+    secure: kR6LUNZz4V+16ztKUroHvihfg/t7h4SEqOT2xOQnvfc2YCKKgbp9Ptfu3I6YE60I2Tu0K3Ht3O7XIeNIsYJvLmuw9bfBmLk8jT2fSLEKuxTjMOCsPKuur3hgHX0UKlfBMQNKHp74AAg4kf7CJ6NYY4s+EKgQjZphAcoMo5zYyXuNntS4hTYhk8Ts4pDvaXjb80owTtvoD8oJEni1x3jZEzT8z5n7YzgAg/BJo+thXZifSNJNH6iolKghDP4+JZCP9ot5F7v70m5JXKOeyywGxUPd16xU9Ju6rHdO21WE+W34dsKQJ4Bm5E2KVRK4W5yqArWElMq6cBuzjFy2ESJ0gX3Rsq3f0GG/9OQ+eekXvNeSt+jVmw7z6mZPTGDpVpsrFKkabhOYr7sP8HPwB0W+QbdAdUG4z2q4d9eu4Q/SYpVkpiXg2SMOlmG//8ljVZ/bM2tmWH9TSrMwG4XNXaVTNUGmIW7xStXyNV4wfOT9y81tPnPjNRsLYbOGaER/d7sEvoLUk7i9jnUzqeuWTPOz/4EKGZ/RUdZ+Vock/oSntk2kHyFC5luPPibNm+Y1J4KHut8q0l9TzKIgtNn880kOdSLzdamUKygGLNggn/gx8+zockZaHr3ikWm/ysCFWhbNnDH1BL6dkfVhOf4TT5m+a9rPKAKJJLROW9iwEPBnFBs=
   file: clearableedittext/build/outputs/aar/clearableedittext.aar
   skip_cleanup: true
   on:
