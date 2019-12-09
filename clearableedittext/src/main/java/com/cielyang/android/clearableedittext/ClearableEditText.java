@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.Editable;
@@ -123,22 +124,38 @@ public class ClearableEditText extends AppCompatEditText implements TextWatcher 
         final int touchPointX = (int) event.getX();
 
         final int widthOfView = getWidth();
-        final int compoundPaddingRight = getCompoundPaddingRight();
+        final int compoundPadding =
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1
+                        ? getCompoundPaddingEnd()
+                        : getCompoundPaddingRight();
 
-        return touchPointX >= widthOfView - compoundPaddingRight;
+        return touchPointX >= widthOfView - compoundPadding;
     }
 
     private void showClearIcon(boolean show) {
-        Drawable[] drawables = getCompoundDrawables();
-
-        if (show) {
-            // show icon on the right
-            setCompoundDrawablesWithIntrinsicBounds(
-                    drawables[0], drawables[1], mClearIconDrawable, drawables[3]);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            Drawable[] drawables = getCompoundDrawablesRelative();
+            if (show) {
+                // show icon on the right
+                setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        drawables[0], drawables[1], mClearIconDrawable, drawables[3]);
+            } else {
+                // remove icon
+                setCompoundDrawablesRelative(drawables[0], drawables[1], null, drawables[3]);
+            }
         } else {
-            // remove icon
-            setCompoundDrawables(drawables[0], drawables[1], null, drawables[3]);
+            Drawable[] drawables = getCompoundDrawables();
+
+            if (show) {
+                // show icon on the right
+                setCompoundDrawablesWithIntrinsicBounds(
+                        drawables[0], drawables[1], mClearIconDrawable, drawables[3]);
+            } else {
+                // remove icon
+                setCompoundDrawables(drawables[0], drawables[1], null, drawables[3]);
+            }
         }
+
         mIsClearIconShown = show;
     }
 
